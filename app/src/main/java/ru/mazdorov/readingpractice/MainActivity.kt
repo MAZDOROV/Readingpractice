@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.core.view.children
 
 class MainActivity : AppCompatActivity() {
     private lateinit var syllableText:TextView
@@ -30,16 +31,19 @@ class MainActivity : AppCompatActivity() {
             updateText(game.level)
         }
 
-        for (i in 0..3){
-            var radioButton = RadioButton(this)
+        for (i in 0..4){
+            val radioButton = RadioButton(this)
             radioButton.text = i.toString()
             radioButton.setTextColor(getColor(R.color.purple_200))
-            radioButton.setOnClickListener{
-                game.level = i
-            }
             radioButton.setPadding(24,24,24,24 )
             levelsRadioGroup.addView(radioButton)
         }
+        levelsRadioGroup.setOnCheckedChangeListener{ buttonView, isChackad ->
+            val id = levelsRadioGroup.checkedRadioButtonId // Get the id of the selected RadioButton
+            val index = levelsRadioGroup.indexOfChild(levelsRadioGroup.findViewById(id)) // Get the index of the selected RadioButton
+            game.level = index
+        }
+        levelsRadioGroup.check(levelsRadioGroup.children.last().id)
 
         updateText(game.level)
     }
