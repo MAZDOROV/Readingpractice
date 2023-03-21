@@ -9,25 +9,15 @@ class Generator {
     private val consonants = ("БВГДЖЗЙКЛМНПРСТФХЦШЩ").toCharArray()
     private val other = ("ЪЬ").toCharArray()
     private val exceptions = arrayOf<String>("ЖЫ", "ШЫ", "ЩЯ", "ЧЯ", "ЩЮ", "ЧЮ", "ЙЯ", "ЙЮ", "ЙЁ", "ЙУ", "ЙО", "ЙА","ЙИ","ЙЫ","ЙЭ","ЙЕ")
-
-    private var _randomNumber:Long = 0
-    private val randomNumber:Long
-        get() {
-            val newValue = System.currentTimeMillis()
-            if(_randomNumber == newValue)
-                _randomNumber =  newValue + 1
-            else
-                _randomNumber = newValue
-            return  _randomNumber}
+    private val randomizer = Randomizer()
 
     private fun getOneRandom(charArray: CharArray): CharSequence {
-        val random = Random(randomNumber)
+        val random = Random(randomizer.randomNumber)
         val next = random.nextInt( charArray.size)
         return charArray[next].toString()
     }
 
     fun generate(level: Int): CharSequence {
-
         return when(level){
             0-> getOneRandom(vowels).toString()
             1-> getOneRandom(consonants).toString()
@@ -49,6 +39,6 @@ class Generator {
     }
 
     private fun getLevel_4_Text(): CharSequence {
-        return getLevel_3_Text() + getLevel_3_Text()
+        return getLevel_3_Text() + "-" + getLevel_3_Text()
     }
 }
