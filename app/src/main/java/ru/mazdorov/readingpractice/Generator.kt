@@ -8,10 +8,10 @@ class Generator {
     private val consonants = ("БВГДЖЗЙКЛМНПРСТФХЦШЩ").toCharArray()
     private val other = ("ЪЬ").toCharArray()
     private val exceptions = arrayOf<String>(
-        "ЖЫ", "ЖЯ", "ЖЮ", "ЖЭ",
-        "ЩЫ", "ЩЯ", "ЩЮ", "ЩЭ",
-        "ШЫ", "ШЯ", "ШЮ", "ШЁ",
-        "ЧЫ", "ЧЯ", "ЧЮ", "ЧЁ",
+        "ЖЫ", "ЖЯ", "ЖЮ", "ЖЭ", "ЖЁ",
+        "ЩЫ", "ЩЯ", "ЩЮ", "ЩЭ", "ЩЁ",
+        "ШЫ", "ШЯ", "ШЮ", "ШЭ", "ШЁ",
+        "ЧЫ", "ЧЯ", "ЧЮ", "ЧЭ", "ЧЁ",
         "ЙЯ", "ЙЮ", "ЙЁ", "ЙУ", "ЙО", "ЙА", "ЙИ", "ЙЫ", "ЙЭ", "ЙЕ")
     private val randomizer = Randomizer()
 
@@ -21,7 +21,9 @@ class Generator {
         return charArray[next].toString()
     }
 
-    fun generate(level: Int): CharSequence {
+    fun generate(level: Int?): CharSequence {
+        if(level == null)
+            return ""
         return when(level){
             0-> getRandomLater(vowels).toString()
             1-> getRandomLater(consonants).toString()

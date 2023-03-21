@@ -1,5 +1,7 @@
 package ru.mazdorov.readingpractice
 
+import androidx.lifecycle.MutableLiveData
+
 class Game {
-    public var level:Int = 0
+     val level = MutableLiveData<Int>()
 }

@@ -7,6 +7,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var syllableText:TextView
@@ -20,15 +21,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        game.level.observe(this, Observer { newValue ->
+            updateText(newValue)
+        })
+
         syllableText = findViewById(R.id.syllable_text_view)
         updateButton = findViewById(R.id.update_button)
         levelsRadioGroup = findViewById(R.id.level_radio_group)
 
         syllableText.setOnClickListener{
-            updateText(game.level)
+            updateText(game.level.value)
         }
         updateButton.setOnClickListener{
-            updateText(game.level)
+            updateText(game.level.value)
         }
 
         for (i in 0..4){
@@ -41,14 +46,12 @@ class MainActivity : AppCompatActivity() {
         levelsRadioGroup.setOnCheckedChangeListener{ buttonView, isChackad ->
             val id = levelsRadioGroup.checkedRadioButtonId // Get the id of the selected RadioButton
             val index = levelsRadioGroup.indexOfChild(levelsRadioGroup.findViewById(id)) // Get the index of the selected RadioButton
-            game.level = index
+            game.level.value = index
         }
         levelsRadioGroup.check(levelsRadioGroup.children.last().id)
-
-        updateText(game.level)
     }
 
-    private fun updateText(level:Int){
+    private fun updateText(level:Int?){
         syllableText.text = generator.generate(level)
     }
 
