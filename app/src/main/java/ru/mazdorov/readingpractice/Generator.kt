@@ -30,6 +30,7 @@ class Generator {
             2-> getRandomLater(allLetters).toString()
             3-> getLevel_3_Text()
             4-> getLevel_4_Text()
+            5-> getLevel_5_Text()
             else -> {
                 level.toString()
             }
@@ -44,6 +45,13 @@ class Generator {
     }
 
     private fun getLevel_4_Text(): CharSequence {
+        var result = getRandomLater(vowels).toString() + getRandomLater(consonants).toString()
+        if (exceptions.contains(result))
+            result = getLevel_3_Text()
+        return result
+    }
+
+    private fun getLevel_5_Text(): CharSequence {
         val firstPart = getLevel_3_Text()
         var secondPart: String
         do {

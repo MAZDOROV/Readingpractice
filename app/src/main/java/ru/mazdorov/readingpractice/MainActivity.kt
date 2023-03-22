@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             updateText(game.level.value)
         }
 
-        for (i in 0..4){
+        for (i in 0..5){
             val radioButton = RadioButton(this)
             radioButton.text = i.toString()
             radioButton.setTextColor(getColor(R.color.purple_200))
@@ -54,7 +54,4 @@ class MainActivity : AppCompatActivity() {
     private fun updateText(level:Int?){
         syllableText.text = generator.generate(level)
     }
-
-
-
 }
